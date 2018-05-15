@@ -1,0 +1,41 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+   http://www.springframework.org/schema/util
+      http://www.springframework.org/schema/util/spring-util.xsd
+      http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	<!-- START PROCESSING CONFIG  -->
+	<!-- Processing Chain -->
+	<bean id="startProcessingChain" class="hax.expwnge.processing.impl.chain.ProcessingChainImpl">
+		<property name="state" ref="chromeProcessingState" />
+	</bean>
+	
+	<!-- Processing State -->
+	<bean id="chromeProcessingState" class="hax.expwnge.processing.impl.state.ProcessingStateImpl">
+		<property name="guardMap">
+			<bean class="org.apache.commons.collections.map.DefaultedMap">
+				<constructor-arg>
+					<ref bean="checkExecuteChrome" />
+				</constructor-arg>
+			</bean>
+		</property>
+		<property name="actionMap">
+			<bean class="org.apache.commons.collections.map.DefaultedMap">
+				<constructor-arg>
+					<ref bean="executeChrome" />
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
+	<!-- Processing Guards -->
+	<bean id="checkExecuteChrome" class="hax.expwnge.processing.impl.rules.CheckExecuteChrome" />
+	
+	<!-- Processing Actions -->
+	<bean id="executeChrome" class="hax.expwnge.processing.impl.actions.ExecuteChrome" />
+	<!-- END PROCESSING CONFIG  -->
+</beans>
