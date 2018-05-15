@@ -10,17 +10,18 @@
       http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-3.0.xsd
 	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
-	<bean id="expwnge" class="hax.expwnge.Expwnge" />
-	
+
 	<!-- START ENTITY -->
 	<bean id="loginDAO" class="hax.expwnge.dao.LoginDAO" />
 	<!-- END ENTITY -->
-	
+
 	<!-- START BUILDERS -->
 	<bean id="loginBuilder" class="hax.expwnge.builders.LoginBuilder" />
 	<!-- END BUILDERS -->
-	
+
 	<!-- START PROPERTIES -->
 	<util:properties id="app" location="classpath:META-INF/expwnge.properties" />
 	<!-- END PROPERTIES -->
+	
+	<import resource="classpath:processChain-applicationContext.xml" />
 </beans>
