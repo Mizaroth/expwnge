@@ -16,4 +16,7 @@
 	<!-- START BUILDERS -->
 	<bean id="loginBuilder" class="hax.expwnge.builders.LoginBuilder" />
 	<!-- END BUILDERS -->
+	<!-- START PROPERTIES -->
+	<util:properties id="app" location="classpath:META-INF/expwnge.properties" />
+	<!-- END PROPERTIES -->
 </beans>
