@@ -11,7 +11,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -29,20 +28,7 @@ import hax.expwnge.models.Login;
 public class Expwnge implements CommandLineRunner {
   @Autowired
   private LoginDAO loginDAO;
-  @Value("#{app.jdbc_driver}")
-  private String jdbcDriver;
   private static final Logger LOGGER = Logger.getLogger(Expwnge.class);
-
-  /**
-   * Register SQLite JDBC Driver
-   */
-  static {
-    try {
-      Class.forName("org.sqlite.JDBC");
-    } catch (ClassNotFoundException e) {
-      LOGGER.error(e);
-    }
-  }
 
   public static void main(String[] args) {
     SpringApplication.run(Expwnge.class, args);
