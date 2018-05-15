@@ -10,11 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import hax.expwnge.builders.LoginBuilder;
 import hax.expwnge.models.Login;
 
 public class LoginDAO implements GenericDAO<Login> {
+  @Autowired
+  private LoginBuilder loginBuilder;
   private static final Logger LOGGER = Logger.getLogger(LoginDAO.class);
   
   @Override
@@ -38,7 +41,7 @@ public class LoginDAO implements GenericDAO<Login> {
         while(rs.next()) {
           if(logins == null)
             logins = new ArrayList<>();
-          logins.add(new LoginBuilder()
+          logins.add(loginBuilder
               .signOnRealm(rs.getString(1))
               .username(rs.getString(2))
               .passwordBytes(rs.getBytes(3))
