@@ -21,6 +21,7 @@
 
 	<!-- START PROPERTIES -->
 	<util:properties id="app" location="classpath:META-INF/expwnge.properties" />
+	<util:properties id="ftp" location="classpath:META-INF/ftp.properties" />
 	<!-- END PROPERTIES -->
 	
 	<import resource="classpath:processChain-applicationContext.xml" />

