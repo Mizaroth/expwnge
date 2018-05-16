@@ -24,4 +24,5 @@
 	<!-- END PROPERTIES -->
 	
 	<import resource="classpath:processChain-applicationContext.xml" />
+	<bean id="processingContext" class="hax.expwnge.models.ProcessingContext" />
 </beans>

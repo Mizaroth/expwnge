@@ -34,28 +34,28 @@ public class TableUtil {
   }
   
 
-  public static List<String> populateTable(List<Login> logins, Map<String, Integer> columnsWidth) {
-    List<String> tableRows = null;
+  public static String populateTable(List<Login> logins, Map<String, Integer> columnsWidth) {
+    StringBuilder tableRows = null;
     
     if(columnsWidth != null) {
       int maxUrlSize = columnsWidth.get(URL_LENGTH);
       int maxUserSize = columnsWidth.get(USR_LENGTH);
       int maxPwdSize = columnsWidth.get(PWD_LENGTH);
       
-      tableRows = new ArrayList<>();
+      tableRows = new StringBuilder();
       //Header
-      tableRows.add(String.format(TABLE_FORMAT, StringUtils.center(URL, maxUrlSize), 
+      tableRows.append(String.format(TABLE_FORMAT, StringUtils.center(URL, maxUrlSize), 
                                             StringUtils.center(USERNAME, maxUserSize), 
                                             StringUtils.center(PASSWORD, maxPwdSize)));
       //Body
       for (Login login : logins) {
-        tableRows.add(String.format(TABLE_FORMAT, StringUtils.center(login.getSignOnUrl(), maxUrlSize), 
+        tableRows.append(String.format(TABLE_FORMAT, StringUtils.center(login.getSignOnUrl(), maxUrlSize), 
                                               StringUtils.center(login.getUsername(), maxUserSize), 
                                               StringUtils.center(login.getPassword(), maxPwdSize)));
       }
     }
     
-    return tableRows;
+    return tableRows != null ? tableRows.toString() : null;
   }
 
   private static void putMaxPerColumn(List<Login> logins, Map<String, Integer> maxLengthMap) {

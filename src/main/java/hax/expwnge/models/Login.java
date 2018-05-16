@@ -1,5 +1,7 @@
 package hax.expwnge.models;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.List;
 
 import hax.expwnge.utils.TableUtil;
@@ -35,7 +37,7 @@ public class Login {
   }
 
   public class Table {
-    private List<String> content;
+    private String content;
     
     public Table() {
       //Explicit default constructor
@@ -45,8 +47,12 @@ public class Login {
         this.content = TableUtil.populateTable(logins, TableUtil.getColumnsWidth(logins));
     }
 
-    public List<String> getContent() {
+    public String getContent() {
       return content;
+    }
+    
+    public InputStream getContentAsStream() {
+      return new ByteArrayInputStream(content.getBytes());
     }
   }
 }

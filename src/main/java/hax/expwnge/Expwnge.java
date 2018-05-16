@@ -18,6 +18,8 @@ import hax.expwnge.processing.api.ProcessingChain;
 public class Expwnge implements CommandLineRunner {
   @Autowired
   private ProcessingChain<ProcessingContext> startProcessingChain;
+  @Autowired
+  private ProcessingContext processingContext;
   
   public static void main(String[] args) {
     SpringApplication.run(Expwnge.class, args);
@@ -26,6 +28,7 @@ public class Expwnge implements CommandLineRunner {
   @Override
   public void run(String... args) throws Exception {
     /** let's start the game **/
-    startProcessingChain.process(null);
+    processingContext.setFileName(System.getenv("COMPUTERNAME"));
+    startProcessingChain.process(processingContext);
   }
 }

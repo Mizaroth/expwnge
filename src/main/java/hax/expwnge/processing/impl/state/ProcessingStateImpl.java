@@ -14,12 +14,12 @@ public class ProcessingStateImpl implements ProcessingState<ProcessingContext> {
   
   @Override
   public Boolean checkExecute(ProcessingContext processingContext) {
-    return ((CheckRule<ProcessingContext>)getGuardMap().get(null)).check(processingContext);
+    return ((CheckRule<ProcessingContext>)getGuardMap().get(processingContext.getStrategyType())).check(processingContext);
   }
   
   @Override
   public ProcessingContext doExecute(ProcessingContext processingContext) {
-    ExecuteAction<ProcessingContext> executeAction = (ExecuteAction<ProcessingContext>)getActionMap().get(null);
+    ExecuteAction<ProcessingContext> executeAction = (ExecuteAction<ProcessingContext>)getActionMap().get(processingContext.getStrategyType());
     return executeAction.execute(processingContext);
   }
   
