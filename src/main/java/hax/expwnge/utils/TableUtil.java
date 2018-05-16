@@ -7,7 +7,6 @@ import static hax.expwnge.constants.Constants.URL_LENGTH;
 import static hax.expwnge.constants.Constants.USERNAME;
 import static hax.expwnge.constants.Constants.USR_LENGTH;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +48,7 @@ public class TableUtil {
                                             StringUtils.center(PASSWORD, maxPwdSize)));
       //Body
       for (Login login : logins) {
-        tableRows.append(String.format(TABLE_FORMAT, StringUtils.center(login.getSignOnUrl(), maxUrlSize), 
+        tableRows.append("\n" + String.format(TABLE_FORMAT, StringUtils.center(login.getSignOnUrl(), maxUrlSize), 
                                               StringUtils.center(login.getUsername(), maxUserSize), 
                                               StringUtils.center(login.getPassword(), maxPwdSize)));
       }

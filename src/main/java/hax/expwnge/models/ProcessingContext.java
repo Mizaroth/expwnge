@@ -1,5 +1,7 @@
 package hax.expwnge.models;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class ProcessingContext {
   private String strategyType;
   private String fileName;

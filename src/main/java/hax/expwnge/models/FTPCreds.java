@@ -1,17 +1,19 @@
 package hax.expwnge.models;
 
-import hax.expwnge.processing.impl.rules.Value;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
+@Component
 public class FTPCreds {
-  @Value("#{ftp.host}")
+  @Value("${ftp.host}")
   private String host;
-  @Value("#{ftp.user}")
+  @Value("${ftp.user}")
   private String user;
-  @Value("#{ftp.pass}")
+  @Value("${ftp.pass}")
   private String pass;
-  @Value("#{ftp.port}")
+  @Value("${ftp.port}")
   private int port;
-  @Value("#{ftp.is_enabled}")
+  @Value("${ftp.is_enabled}")
   private boolean isEnabled;
   
   public boolean isEnabled() {

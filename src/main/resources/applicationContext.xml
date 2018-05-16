@@ -11,6 +11,9 @@
 	http://www.springframework.org/schema/context/spring-context-3.0.xsd
 	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 
+	<import resource="classpath:processChain-applicationContext.xml" />
+	<bean id="processingContext" class="hax.expwnge.models.ProcessingContext" />
+
 	<!-- START ENTITY -->
 	<bean id="loginDAO" class="hax.expwnge.dao.LoginDAO" />
 	<!-- END ENTITY -->
@@ -21,9 +24,24 @@
 
 	<!-- START PROPERTIES -->
 	<util:properties id="app" location="classpath:META-INF/expwnge.properties" />
-	<util:properties id="ftp" location="classpath:META-INF/ftp.properties" />
 	<!-- END PROPERTIES -->
-	
-	<import resource="classpath:processChain-applicationContext.xml" />
-	<bean id="processingContext" class="hax.expwnge.models.ProcessingContext" />
+
+	<!-- START JASYPT CONFIG -->
+	<bean id="propertyPlaceholderConfigurer"
+		class="org.jasypt.spring31.properties.EncryptablePropertyPlaceholderConfigurer">
+		<constructor-arg ref="configurationEncryptor" />
+		<property name="location" value="classpath:META-INF/ftp.properties" />
+	</bean>
+
+	<bean id="configurationEncryptor" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
+		<property name="config" ref="environmentVariablesConfiguration" />
+	</bean>
+
+	<bean id="environmentVariablesConfiguration"
+		class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig">
+		<property name="algorithm" value="PBEWithMD5AndDES" />
+		<property name="passwordEnvName" value="CAS_PBE_PASSWORD" />
+		<property name="password" value="#{app.TEST_STUFF}" />
+	</bean>
+	<!-- END JASYPT CONFIG -->
 </beans>
